@@ -12,6 +12,7 @@
 		7C23BA2D28460A4F00B2A491 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C23BA2C28460A4F00B2A491 /* MainViewController.swift */; };
 		7C23BA3228460A5000B2A491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C23BA3128460A5000B2A491 /* Assets.xcassets */; };
 		7C23BA3528460A5100B2A491 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C23BA3328460A5100B2A491 /* LaunchScreen.storyboard */; };
+		7C23BA4128464F9E00B2A491 /* JsonContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C23BA4028464F9D00B2A491 /* JsonContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		7C23BA3128460A5000B2A491 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C23BA3428460A5100B2A491 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C23BA3628460A5100B2A491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C23BA4028464F9D00B2A491 /* JsonContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		7C23BA2728460A4F00B2A491 /* TimeToTravel */ = {
 			isa = PBXGroup;
 			children = (
+				7C23BA4028464F9D00B2A491 /* JsonContainer.swift */,
 				7C23BA3C28460B1D00B2A491 /* Aplication */,
 				7C23BA2C28460A4F00B2A491 /* MainViewController.swift */,
 				7C23BA3D28460B5000B2A491 /* Resources */,
@@ -153,6 +156,7 @@
 				7C23BA2D28460A4F00B2A491 /* MainViewController.swift in Sources */,
 				7C23BA2928460A4F00B2A491 /* AppDelegate.swift in Sources */,
 				7C23BA2B28460A4F00B2A491 /* SceneDelegate.swift in Sources */,
+				7C23BA4128464F9E00B2A491 /* JsonContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
