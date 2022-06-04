@@ -9,7 +9,8 @@ import UIKit
 
 class FlightDetailsView: UIView {
 
-    private let fontSize: CGFloat = 25
+    private let fontSize: CGFloat = 20
+    private let highlightFontSize: CGFloat = 30
 
     private lazy var startCityLbael = makeLabel(fontSize: fontSize)
     private lazy var endCityLbael = makeLabel(fontSize: fontSize)
@@ -56,10 +57,20 @@ class FlightDetailsView: UIView {
     func setupView(flight: Flight?) {
         guard let flight = flight else { return }
         startCityLbael.text = "Город отправления:\n\(flight.startCity)\n\(flight.startCityCode.uppercased())"
+        startCityLbael.attributedText = setAttributText(mainString: startCityLbael.text!, highlight: flight.startCity)
+
         endCityLbael.text = "Город прибытия:\n\(flight.endCity)\n\(flight.endCityCode.uppercased())"
+        endCityLbael.attributedText = setAttributText(mainString: endCityLbael.text!, highlight: flight.endCity)
+
         startDateLbael.text = "Дата отправления:\n" + dateToString(date: flight.startDate)
+        startDateLbael.attributedText = setAttributText(mainString: startDateLbael.text!, highlight: dateToString(date: flight.startDate))
+
         endDateLbael.text = "Дата прибытия:\n" + dateToString(date: flight.endDate)
+        endDateLbael.attributedText = setAttributText(mainString: endDateLbael.text!, highlight: dateToString(date: flight.endDate))
+
         priceLbael.text = "Цена:" + String(flight.price) + "₽"
+        priceLbael.attributedText = setAttributText(mainString: priceLbael.text!, highlight: String(flight.price))
+
         if let _ = Storage.likedFlights[flight] {
             likeButton.configuration?.image = UIImage(systemName: "heart.fill")
         } else {
@@ -67,9 +78,20 @@ class FlightDetailsView: UIView {
         }
     }
 
+    private func setAttributText(mainString: String, highlight: String) -> NSMutableAttributedString {
+        let colorOfTime = UIColor.WbTheme.darkViolet
+        //setting a different color and font size
+        let range = (mainString as NSString).range(of: highlight)
+        let mutableAttributedString = NSMutableAttributedString.init(string: mainString)
+        mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: colorOfTime, range: range)
+        mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: highlightFontSize, weight: .bold), range: range)
+        return mutableAttributedString
+    }
+
+
     private func dateToString(date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yy"
+        formatter.dateFormat = "dd.MM.yyyy"
         return formatter.string(from: date)
     }
 

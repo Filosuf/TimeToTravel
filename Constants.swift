@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct Constants {
-    static let cellHeight: CGFloat = 190
+    static let cellHeight: CGFloat = 160
     static let cellSideInsert: CGFloat = 10
 }
 

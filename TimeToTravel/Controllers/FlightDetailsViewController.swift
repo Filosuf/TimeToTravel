@@ -23,6 +23,7 @@ final class FlightDetailsViewController: UIViewController {
 
     private func setBar() {
         title = "Подробнее"
+        UINavigationBar.appearance().tintColor = .WbTheme.darkViolet
     }
 
     private func setupView() {

@@ -12,13 +12,13 @@ class FlightsCollectionViewCell: UICollectionViewCell {
     static let identifier = "FlightsCollectionViewCell"
     var flight: Flight?
 
-    private lazy var startCityLbael = makeLabel(fontSize: 25)
-    private lazy var startCityCodeLbael = makeLabel(fontSize: 15)
-    private lazy var endCityLbael = makeLabel(fontSize: 25)
-    private lazy var endCityCodeLbael = makeLabel(fontSize: 15)
-    private lazy var startDateLbael = makeLabel(fontSize: 22)
-    private lazy var endDateLbael = makeLabel(fontSize: 22)
-    private lazy var priceLbael = makeLabel(fontSize: 30)
+    private lazy var startCityLbael = makeLabel(fontSize: 22)
+    private lazy var startCityCodeLbael = makeLabel(fontSize: 12)
+    private lazy var endCityLbael = makeLabel(fontSize: 22)
+    private lazy var endCityCodeLbael = makeLabel(fontSize: 12)
+    private lazy var startDateLbael = makeLabel(fontSize: 19)
+    private lazy var endDateLbael = makeLabel(fontSize: 19)
+    private lazy var priceLbael = makeLabel(fontSize: 27)
 
     private let cityDivider: UILabel = {
 
@@ -57,6 +57,7 @@ class FlightsCollectionViewCell: UICollectionViewCell {
 
     @objc func likeButtonPressed() {
         guard let flight = flight else { return }
+        //если перелет находится в словаре likedFlights то удаляем его из словаря и убираем Like и наоборот
         if let _ = Storage.likedFlights[flight] {
             Storage.likedFlights[flight] = nil
             likeButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
@@ -66,6 +67,7 @@ class FlightsCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    //Настрока отображаемого текста о перелёте и иконки Like
     func setupCell() {
         guard let flight = flight else { return }
         startCityLbael.text = flight.startCity
@@ -84,7 +86,7 @@ class FlightsCollectionViewCell: UICollectionViewCell {
 
     private func dateToString(date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yy"
+        formatter.dateFormat = "dd.MM.yyyy"
         return formatter.string(from: date)
     }
 
@@ -112,6 +114,7 @@ class FlightsCollectionViewCell: UICollectionViewCell {
 
             endCityLbael.topAnchor.constraint(equalTo: contentView.topAnchor, constant: interval),
             endCityLbael.leadingAnchor.constraint(equalTo: cityDivider.trailingAnchor, constant: interval),
+            endCityLbael.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -interval),
 
             startCityCodeLbael.topAnchor.constraint(equalTo: startCityLbael.bottomAnchor),
             startCityCodeLbael.leadingAnchor.constraint(equalTo: startCityLbael.leadingAnchor),

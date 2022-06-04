@@ -9,8 +9,6 @@ import UIKit
 
 final class MainViewController: UIViewController {
 
-    private var flights = [Flight]()
-
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
 
@@ -28,6 +26,7 @@ final class MainViewController: UIViewController {
         let activityView: UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
             activityView.hidesWhenStopped = true
             activityView.translatesAutoresizingMaskIntoConstraints = false
+            //Загрузка стартует вместе со стартом приложения, поэтому сразу активируем
             activityView.startAnimating()
             return activityView
         }()
@@ -51,7 +50,7 @@ final class MainViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
-    //
+    //Получение данных о полёте от API. Данные декодируются на основе структуры описанной в файле JsonContainer
     private func getFlights() {
         let travelURL = URL(string: "https://travel.wildberries.ru/statistics/v1/cheap")
         guard let url = travelURL else { return }
@@ -62,7 +61,7 @@ final class MainViewController: UIViewController {
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .iso8601
                     let conteiner = try! decoder.decode(Container.self, from: inputData)
-                    self.flights = conteiner.data
+                    Storage.flightsArray = conteiner.data
                     // Когда данные получены и расшифрованы,
                     // мы останавливаем наш индикатор и обновляем CollectionView.
                     DispatchQueue.main.async {
@@ -96,12 +95,12 @@ final class MainViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        flights.count
+        Storage.flightsArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FlightsCollectionViewCell.identifier, for: indexPath) as! FlightsCollectionViewCell
-        cell.flight = flights[indexPath.row]
+        cell.flight = Storage.flightsArray[indexPath.row]
         cell.setupCell()
         return cell
     }
@@ -120,16 +119,9 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         sideInsert
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        sideInsert
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: sideInsert, left: sideInsert, bottom: sideInsert, right: sideInsert)
-    }
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = FlightDetailsViewController()
-        vc.flight = flights[indexPath.item]
+        vc.flight = Storage.flightsArray[indexPath.item]
         navigationController?.pushViewController(vc, animated: true)
     }
 }
