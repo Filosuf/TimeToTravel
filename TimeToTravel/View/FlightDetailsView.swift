@@ -68,7 +68,7 @@ class FlightDetailsView: UIView {
         endDateLbael.text = "Дата прибытия:\n" + dateToString(date: flight.endDate)
         endDateLbael.attributedText = setAttributText(mainString: endDateLbael.text!, highlight: dateToString(date: flight.endDate))
 
-        priceLbael.text = "Цена:" + String(flight.price) + "₽"
+        priceLbael.text = "Цена: " + String(flight.price) + "₽"
         priceLbael.attributedText = setAttributText(mainString: priceLbael.text!, highlight: String(flight.price))
 
         if let _ = Storage.likedFlights[flight] {
